@@ -1,24 +1,24 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-type Book = {
+type Patient = {
   id: string
-  title: string
+  name: string
 }
 function App() {
-  const [books, setBooks] = useState<Book[]>([])
+  const [patients, setPatients] = useState<Patient[]>([])
   useEffect(() => {
-    const getBooks = async () => {
-      const response = await fetch('http://localhost:4000/books')
+    const getPatients = async () => {
+      const response = await fetch('http://localhost:4000/patients')
       const data = await response.json()
-      setBooks(data)
+      setPatients(data)
     }
-    getBooks()
+    getPatients()
   }, [])
   return (
     <>
       <ul>
-        {books.map(book => (
-          <li key={book.id}>{book.title}</li>
+        {patients.map(patient => (
+          <li key={patient.id}>{patient.name}</li>
         ))}
       </ul>
     </>
