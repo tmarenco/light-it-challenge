@@ -1,0 +1,38 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs
+*.log
+logs/**/*.log
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Build directories
+dist/
+build/
+
+# Vite
+.vite/
+.vite/deps_temp/
+
+# TypeScript
+*.tsbuildinfo
+
+# Environment variables
+.env
+.env.*.local
+
+# IDE/editor
+.vscode/
+.idea/
+*.swp
+
+# Package managers
+pnpm-lock.yaml
+yarn.lock
