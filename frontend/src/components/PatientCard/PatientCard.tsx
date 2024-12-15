@@ -8,7 +8,6 @@ interface Props {
 
 export const PatientCard = ({ patient }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  console.log(patient);
   return (
     <div
       className={`${styles.card} ${isExpanded ? styles.expanded : ""}`}
