@@ -5,10 +5,11 @@ interface FetchResult {
   state: States;
   data: Patient[] | null;
 }
+const URL = import.meta.env.VITE_API_URL;
 
 export const getPatients = async (): Promise<FetchResult> => {
   try {
-    const response = await fetch('http://localhost:4000/patients');
+    const response = await fetch(`${URL}/patients`);
     if (!response.ok) throw new Error('Error fetching patients');
 
     const data = await response.json();
@@ -35,7 +36,7 @@ export const createPatient = async (patient: Patient): Promise<void> => {
   formData.append('phone', patient.phone.toString());
   formData.append('photo', patient.photo);
 
-  const response = await fetch('http://localhost:4000/patients/add', {
+  const response = await fetch(`${URL}/patients/add`, {
     method: 'POST',
     body: formData,
   });
