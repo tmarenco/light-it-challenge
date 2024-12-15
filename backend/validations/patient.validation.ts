@@ -13,6 +13,10 @@ export const patientValidationRules = [
   body('phone')
     .notEmpty().withMessage('Phone is required')
     .isNumeric().withMessage('Phone must contain only numbers'),
-  body('photo')
-    .notEmpty().withMessage('Photo is required'),
+  body('photo').custom((value, { req }) => {
+    if (!req.file) {
+      throw new Error('Photo is required');
+    }
+    return true;
+  }),
 ];
