@@ -26,7 +26,6 @@ const StateViews: { [key in States]: React.FC<StateViewProps> } = {
 export const Home = () => {
   const [state, setState] = useState<States>(States.LOADING);
   const [patients, setPatients] = useState<Patient[]>([]);
-
   const fetchPatients = async () => {
     const result = await getPatients();
     setState(result.state);

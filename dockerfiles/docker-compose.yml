@@ -1,0 +1,30 @@
+services:
+    monorepo:
+        container_name: ligth-it-monorepo
+        build:
+            context: ../
+            dockerfile: ./dockerfiles/Dockerfile
+        restart: 'unless-stopped'
+        volumes:
+            - ../:/usr/src/app:rw
+        ports:
+            - 5173:5173
+            - 5000:5000
+        command: sh -c "npm ci && npm start"
+        networks:
+            - monorepo_net
+    mysql:
+        image: mysql:8.0
+        container_name: mysql_container
+        env_file: ".env"
+        volumes:
+            - ./mysql_data:/var/lib/mysql
+        restart: always
+        networks:
+            - monorepo_net
+        ports:
+            - 3307:3306
+            - 8080:8080
+networks:
+    monorepo_net:
+        driver: bridge

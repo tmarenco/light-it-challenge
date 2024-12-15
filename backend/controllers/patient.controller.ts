@@ -16,7 +16,8 @@ export const getPatients = async (req: Request, res: Response) => {
 export const addPatient = async (req: Request, res: Response) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    res.status(400).json({ errors: errors.array() });
+    return;
   }
 
   const { name, email, address, phone } = req.body;
@@ -25,7 +26,8 @@ export const addPatient = async (req: Request, res: Response) => {
   try {
     const emailUnique = await isEmailUnique(email);
     if (!emailUnique) {
-      return res.status(400).json({ error: 'Email already exists' });
+      res.status(400).json({ error: 'Email already exists' });
+      return;
     }
     const photo = convertPhotoToBase64(file);
     await createPatient({ name, email, address, phone, photo });
