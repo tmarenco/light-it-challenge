@@ -7,6 +7,7 @@ import styles from "./patient-form.module.scss";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { addPatientToLocalStorage } from "../../api/localStorage";
+import { Spinner } from "../../shared/components/Spinner/Spinner";
 
 interface Patient {
   name: string;
@@ -19,6 +20,8 @@ interface Patient {
 
 export const PatientForm = () => {
   const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
 
   const handleGoHome = () => {
     navigate("/");
@@ -52,6 +55,7 @@ export const PatientForm = () => {
     }),
     onSubmit: async (values) => {
       try {
+        setLoading(true);
         const { countryCharacteristic, phone, ...rest } = values;
         const patientData = {
           ...rest,
@@ -60,6 +64,7 @@ export const PatientForm = () => {
 
         await createPatient(patientData);
         addPatientToLocalStorage(patientData);
+        setLoading(false);
         Swal.fire({
           title: "Good job!",
           text: "Patient added successfully",
@@ -70,6 +75,7 @@ export const PatientForm = () => {
           }
         });
       } catch (error: unknown) {
+        setLoading(false);
         if (error instanceof Error) {
           Swal.fire({
             title: "Error",
@@ -212,8 +218,7 @@ export const PatientForm = () => {
       {showError("photo") && (
         <div className={styles["error-message"]}>{formik.errors.photo}</div>
       )}
-
-      <button type="submit">Send</button>
+      {loading ? <Spinner /> : <button type="submit">Send</button>}
     </form>
   );
 };
