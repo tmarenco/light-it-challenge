@@ -1,9 +1,5 @@
 # Light-it Challenge
 
-## Autor
-
-**Tomás Marenco**
-
 ---
 
 ## Aclaraciones
